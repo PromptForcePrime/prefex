@@ -1,76 +1,105 @@
 # Prefex
 
-**40–70% off your LLM bill. One line of config.**
+**40–70% off your Claude bill. One line in Claude Code settings.**
 
-Prefex is a local proxy for Anthropic and OpenAI APIs. Drop it in front of your existing API client — no code changes, no data leaving your machine, savings from the first request.
+Prefex is a local proxy built for Claude Code and the Anthropic API. It optimizes your API calls invisibly — your workflow does not change, your keys never leave your machine, and savings start from the first request.
 
 ```bash
 # Download the install script and review it before running
 curl -fsSL https://prefex.vercel.app/install.sh -o install.sh
 less install.sh
 
-# When you're satisfied, run it
+# When you are satisfied, run it
 bash install.sh
 ```
 
-We don't do `curl | bash`. Download the script, read it, then decide.
+We do not do `curl | bash`. Download the script, read it, then decide.
 
 ---
 
-## How it works
+## Quick start
 
-Prefex intercepts your API calls locally and applies three cost-reduction layers:
+### Claude Code (recommended)
 
-**Prefix cache** — detects repeated system prompt tokens and injects Anthropic's caching headers automatically. Cached tokens cost 90% less. No configuration needed.
-
-**Session memory** — stores conversation turns in local Redis and sends only the delta on each request, not the full history. Eliminates the biggest source of redundant input tokens in multi-turn workflows.
-
-**Model routing** — a local RouteLLM sidecar scores each prompt and routes simple requests to a cheaper model (Haiku) while keeping complex ones on Sonnet/Opus. Threshold is configurable.
-
-All three layers are independent. Each works without the others. Together they compound.
-
----
-
-## Connect your client
-
-Change one value:
-
-```python
-# Anthropic SDK
-client = anthropic.Anthropic(api_key="sk-ant-...", base_url="http://localhost:8000")
-
-# OpenAI SDK
-client = OpenAI(api_key="sk-...", base_url="http://localhost:8000/v1")
-```
+Add one line to `~/.claude/settings.json`:
 
 ```json
-// Claude Code: ~/.claude/settings.json
-{ "env": { "ANTHROPIC_BASE_URL": "http://localhost:8000" } }
+{ "env": { "ANTHROPIC_BASE_URL": "http://localhost:8019" } }
 ```
+
+Restart Claude Code. Done.
+
+### Python (Anthropic SDK)
+
+```python
+client = anthropic.Anthropic(
+    api_key="sk-ant-...",
+    base_url="http://localhost:8019",  # add this
+)
+```
+
+### Dashboard
+
+Open [http://localhost:8019/dashboard](http://localhost:8019/dashboard) to see savings in real time.
+
+---
+
+## What it does
+
+Prefex sits between your code and the Anthropic API. It applies multiple optimization layers to reduce your token costs by 40–70%, depending on your usage pattern. The proxy adds <15ms overhead per request.
+
+All optimization happens locally. If any internal component fails, requests pass through to Anthropic unchanged. Prefex never blocks an API call.
 
 ---
 
 ## Privacy
 
-Prefex runs entirely on localhost. No telemetry, no analytics, no external logging. Your prompts go directly from your machine to Anthropic/OpenAI — Prefex only touches them locally to inject caching headers and route models.
+Prefex runs entirely on localhost. No telemetry, no analytics, no external logging. Your prompts go directly from your machine to Anthropic — Prefex only touches them locally.
 
-If any Prefex component fails, requests pass through unchanged. It never blocks an API call due to its own failure.
+Verify with tcpdump:
 
-Verify: `sudo tcpdump -i any -n 'dst port 443' | grep -v api.anthropic.com`
+```bash
+sudo tcpdump -i any -n 'dst port 443' | grep -v api.anthropic.com
+```
+
+Full details: [https://prefex.vercel.app/trust](https://prefex.vercel.app/trust)
+
+---
+
+## Upgrade
+
+Run the install script again — it detects the existing installation, preserves your data, and pulls the latest version.
+
+```bash
+curl -fsSL https://prefex.vercel.app/install.sh -o install.sh && bash install.sh
+```
+
+## Uninstall
+
+```bash
+curl -fsSL https://prefex.vercel.app/uninstall.sh | bash
+```
+
+Add `--purge` to also remove `~/.prefex` (data, config, logs).
 
 ---
 
 ## Feedback and feature requests
 
-This is the public home for Prefex feedback. If you're using Prefex — or tried to and hit a wall — we want to hear from you.
+This is the public home for Prefex feedback. If you are using Prefex — or tried to and hit a wall — we want to hear from you.
 
-**[Open an issue →](https://github.com/PromptForcePrime/prefex/issues/new)**
+**[Open an issue](https://github.com/PromptForcePrime/Prefex/issues/new)**
 
 Good things to file:
-- Something didn't work (bug report)
-- Something you expected to exist but doesn't (feature request)
+- Something did not work (bug report)
+- Something you expected to exist but does not (feature request)
 - Something confusing in the install or docs
-- A use case you're not sure Prefex supports
-- Anything that made you close the tab
+- A use case you are not sure Prefex supports
 
 Security issues: email security@prefex.dev rather than filing a public issue.
+
+---
+
+**Website:** [https://prefex.vercel.app](https://prefex.vercel.app)
+**Leaderboard:** [https://prefex.vercel.app/leaderboard](https://prefex.vercel.app/leaderboard)
+
