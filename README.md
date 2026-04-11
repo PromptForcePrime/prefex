@@ -67,7 +67,7 @@ Total overhead: **<15ms p99**. If anything fails internally, requests pass throu
 - **Standalone binary** — no Docker, no Redis, no Python, no dependencies
 - **Local dashboard** — real-time savings, per-project breakdown, request log
 - **Marketplace** — curated skills, MCP servers, and templates for Claude Code ([browse](https://prefex.vercel.app/marketplace))
-- **Free forever** — 30-day license, renewable unlimited times, no credit card ([renew](https://prefex.vercel.app/renew))
+- **Free to use** — 30-day license, renewable online, no credit card ([renew](https://prefex.vercel.app/renew))
 - **Privacy-first** — runs on localhost, no telemetry, no analytics, prompts never logged by default
 
 ---
