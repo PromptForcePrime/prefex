@@ -145,8 +145,6 @@ Good things to file:
 - Confusing install or docs
 - A use case you're not sure Prefex supports
 
-Security issues: email security@prefex.dev.
-
 ---
 
 **Website:** [prefex.vercel.app](https://prefex.vercel.app) | **Leaderboard:** [prefex.vercel.app/leaderboard](https://prefex.vercel.app/leaderboard) | **Marketplace:** [prefex.vercel.app/marketplace](https://prefex.vercel.app/marketplace)
