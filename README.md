@@ -85,21 +85,6 @@ prefex:
     port: 8019
 ```
 
-## Development
-
-Build from source:
-
-```bash
-go build -o prefex ./cmd/inferx
-./prefex serve -config ~/.prefex/config.yaml -db ~/.prefex/data/prefex.db
-```
-
-Release builds use garble for obfuscation:
-
-```bash
-garble -literals -tiny build -ldflags="-s -w" -o prefex ./cmd/inferx
-```
-
 ## Privacy
 
 Prefex logs request metadata (tokens, model, latency) but never logs prompt or response text. All data stays on your machine unless you explicitly sync.
@@ -107,11 +92,6 @@ Prefex logs request metadata (tokens, model, latency) but never logs prompt or r
 ## Docs
 
 Read the full guide: https://prefex.vercel.app/guide
-
-See also:
-* CLAUDE.md: Architecture and dev workflow
-* DEPLOYMENT.md: CI/CD and Docker setup
-* TRUST.md: Data handling and verification
 
 ## License
 
