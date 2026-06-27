@@ -1,0 +1,81 @@
+Prefex
+Copyright (c) Day Two AI. All rights reserved.
+
+Prefex is distributed as a binary (Beta), provided as-is with no warranty.
+"Claude" and "Anthropic" are trademarks of Anthropic, used only to describe
+interoperability. Day Two AI is an Anthropic partner; Prefex is built
+independently, with no Anthropic participation or endorsement.
+
+================================================================================
+Algorithms distilled into native Go (clean-room, NO source code used)
+================================================================================
+
+The following projects inspired ideas that were re-authored from scratch in Go.
+No source code from them is included in or distributed with Prefex. These are
+courtesy credits, not license obligations:
+
+  - RouteLLM            (Apache-2.0)  https://github.com/lm-sys/RouteLLM
+  - LLMLingua / -2      (MIT)         https://github.com/microsoft/LLMLingua
+  - caveman-compression (MIT)         https://github.com/wilpel/caveman-compression
+  - RTK                 (Apache-2.0)  https://github.com/rtk-ai/rtk
+  - Mem0                (Apache-2.0)  https://github.com/mem0ai/mem0
+  - MemGPT / Letta      (Apache-2.0)  https://github.com/letta-ai/letta
+  - OpenHands           (MIT, core)   https://github.com/All-Hands-AI/OpenHands
+  - GraphRAG            (MIT)         https://github.com/microsoft/graphrag
+  - vLLM                (Apache-2.0)  https://github.com/vllm-project/vllm
+  - Ollama              (MIT)         https://github.com/ollama/ollama
+
+================================================================================
+Third-party components bundled or invoked by the OPTIONAL Kompress sidecar
+================================================================================
+
+These apply ONLY if you opt into the text-compaction sidecar
+(compression.kompress: true). The sidecar runs out of process; the Prefex
+binary itself stays model-free. See deploy/kompress-sidecar/.
+
+  headroom / Kompress
+    The extractive keep/drop compaction algorithm the sidecar mirrors.
+    License: Apache-2.0
+    https://github.com/chopratejas/headroom
+
+  chopratejas/kompress-v2-base
+    ModernBERT keep/drop model weights served by the sidecar (downloaded from
+    Hugging Face at deploy time; not redistributed by Prefex).
+    License: Apache-2.0
+    https://huggingface.co/chopratejas/kompress-v2-base
+
+  ModernBERT (answerdotai/ModernBERT-base)
+    The base encoder the kompress weights are fine-tuned from.
+    License: Apache-2.0
+    https://github.com/AnswerDotAI/ModernBERT
+
+  ONNX Runtime
+    Inference runtime for the model (no PyTorch).
+    License: MIT
+    https://github.com/microsoft/onnxruntime
+
+  Hugging Face Transformers
+    Tokenization for the sidecar.
+    License: Apache-2.0
+    https://github.com/huggingface/transformers
+
+================================================================================
+Third-party Go libraries compiled into the prefex binary
+================================================================================
+
+These are linked into the released binary and distributed with it:
+
+  github.com/redis/go-redis/v9   (BSD-2-Clause)    optional Redis session store
+  gopkg.in/yaml.v3               (MIT, Apache-2.0)  config parsing
+  modernc.org/sqlite             (BSD-3-Clause)     embedded dashboard database
+
+The complete set of third-party Go modules compiled into the binary (22 modules,
+direct and transitive) and their licenses is listed in THIRD_PARTY_LICENSES.md,
+generated with go-licenses.
+
+--------------------------------------------------------------------------------
+A full copy of the Apache License 2.0 is available at:
+  https://www.apache.org/licenses/LICENSE-2.0
+
+If anything here is miscredited or mislabeled, please open an issue and we will
+correct it.
