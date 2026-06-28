@@ -24,6 +24,10 @@ courtesy credits, not license obligations:
   - GraphRAG            (MIT)         https://github.com/microsoft/graphrag
   - vLLM                (Apache-2.0)  https://github.com/vllm-project/vllm
   - Ollama              (MIT)         https://github.com/ollama/ollama
+  - headroom            (Apache-2.0)  https://github.com/headroomlabs-ai/headroom
+      (algorithms reimplemented in Go: content-routed compaction, recover-on-demand
+       CCR, output shaping. The headroom Kompress *model* is run via the optional
+       sidecar below, not reimplemented.)
 
 ================================================================================
 Third-party components bundled or invoked by the OPTIONAL Kompress sidecar
@@ -33,10 +37,11 @@ These apply ONLY if you opt into the text-compaction sidecar
 (compression.kompress: true). The sidecar runs out of process; the Prefex
 binary itself stays model-free. See deploy/kompress-sidecar/.
 
-  headroom / Kompress
-    The extractive keep/drop compaction algorithm the sidecar mirrors.
+  headroom / Kompress (model + ONNX inference run by the sidecar)
+    headroom's algorithms are reimplemented in Go (credited above); this entry
+    is the keep/drop model the sidecar runs.
     License: Apache-2.0
-    https://github.com/chopratejas/headroom
+    https://github.com/headroomlabs-ai/headroom
 
   chopratejas/kompress-v2-base
     ModernBERT keep/drop model weights served by the sidecar (downloaded from

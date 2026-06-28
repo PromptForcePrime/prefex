@@ -9,10 +9,10 @@ self-contained binary that runs behind one `base_url` change. No code changes, n
 machine, and an honest dashboard that shows what Prefex actually saved you beyond the native prompt
 caching you already get for free.
 
-A [Promptforce](https://promptforce.io) project, by Day Two AI.
+Prefex is a [Promptforce.ai](https://promptforce.ai) product. Promptforce.ai is a Day Two AI company.
 
 > Prefex is in **Early Access**: free for 60 days, no obligation. Get your install link at
-> [promptforce.io](https://promptforce.io).
+> [promptforce.ai](https://promptforce.ai).
 
 ---
 
@@ -20,14 +20,14 @@ A [Promptforce](https://promptforce.io) project, by Day Two AI.
 
 ```bash
 # macOS / Linux. Download the script and review it before running.
-curl -fsSL https://prefex.vercel.app/install.sh -o install.sh
+curl -fsSL https://promptforce.ai/install.sh -o install.sh
 less install.sh
 bash install.sh
 ```
 
 ```powershell
 # Windows PowerShell
-iwr https://prefex.vercel.app/install.ps1 -OutFile install.ps1; .\install.ps1
+iwr https://promptforce.ai/install.ps1 -OutFile install.ps1; .\install.ps1
 ```
 
 We do not do `curl | bash`. Download the script, read it, then decide. The installer starts Prefex on
@@ -129,6 +129,7 @@ because the ideas are theirs and the credit should be too.
 | [LLMLingua / LLMLingua-2](https://github.com/microsoft/LLMLingua) | Token-importance scoring to drop low-value tokens | MIT |
 | [caveman-compression](https://github.com/wilpel/caveman-compression) | Strip filler from natural-language text for cheap token shaving | MIT |
 | [RTK](https://github.com/rtk-ai/rtk) | Intercept tool output and compress it before it reaches context | Apache-2.0 |
+| [headroom](https://github.com/headroomlabs-ai/headroom) | Content-routed compaction, recover-on-demand CCR, and output shaping (terse-steer + effort-down on routine turns) | Apache-2.0 |
 | [Mem0](https://github.com/mem0ai/mem0) | Cross-session memory via extracted facts and entities | Apache-2.0 |
 | [MemGPT / Letta](https://github.com/letta-ai/letta) | Tiered memory and self-managed context window | Apache-2.0 |
 | [OpenHands](https://github.com/All-Hands-AI/OpenHands) | Condense a task span into a structured progress note | MIT (core) |
@@ -148,7 +149,7 @@ the sidecar** (`compression.kompress: true`). See [`NOTICE`](NOTICE) and `deploy
 
 | Component | Role | License |
 |-----------|------|---------|
-| **[headroom / Kompress](https://github.com/chopratejas/headroom)** | The extractive keep/drop compaction algorithm our sidecar mirrors | Apache-2.0 |
+| **[headroom / Kompress](https://github.com/headroomlabs-ai/headroom)** | The keep/drop model + ONNX inference our sidecar runs (headroom's *algorithms* are reimplemented in Go and credited above; this entry is the *model*) | Apache-2.0 |
 | [`chopratejas/kompress-v2-base`](https://huggingface.co/chopratejas/kompress-v2-base) | The keep/drop model weights the sidecar serves | Apache-2.0 |
 | [ModernBERT](https://github.com/AnswerDotAI/ModernBERT) | The base encoder those weights are fine-tuned from | Apache-2.0 |
 | [ONNX Runtime](https://github.com/microsoft/onnxruntime) | Inference runtime for the model (no PyTorch) | MIT |
