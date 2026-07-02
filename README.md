@@ -1,5 +1,7 @@
 # Prefex
 
+![Prefex Logo](img/promptforce-mark.png)
+
 **Spend less on Claude, with receipts.**
 
 Prefex is a local-first proxy for Claude Code and the Anthropic / OpenAI APIs. The best ideas for cutting
@@ -13,6 +15,8 @@ Prefex is a [Promptforce.ai](https://promptforce.ai) product. Promptforce.ai is 
 
 > Prefex is in **Early Access**: free for 60 days, no obligation. Get your install link at
 > [promptforce.ai](https://promptforce.ai).
+> 
+> **Community:** [Discord](https://discord.gg/Ke5BdFB9Au) · [GitHub](https://github.com/PromptForcePrime/prefex)
 
 ---
 

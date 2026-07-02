@@ -1,0 +1,14 @@
+<!-- PromptForce.ai logo mark: three nested rounded-square rings, self-animating -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="PromptForce">
+  <style>
+    @keyframes pfspin { to { transform: rotate(360deg); } }
+    .pf-ring { fill: none; stroke-linecap: round; transform-box: fill-box; transform-origin: center; }
+    .pf-r1 { animation: pfspin 26s linear infinite; }
+    .pf-r2 { animation: pfspin 38s linear infinite reverse; }
+    .pf-r3 { animation: pfspin 52s linear infinite; }
+    @media (prefers-reduced-motion: reduce) { .pf-ring { animation: none; } }
+  </style>
+  <rect class="pf-ring pf-r3" x="18" y="18" width="84" height="84" rx="24" stroke="#8E97F2" stroke-width="8" pathLength="100" stroke-dasharray="78 22" transform="rotate(60 60 60)"/>
+  <rect class="pf-ring pf-r2" x="32" y="32" width="56" height="56" rx="16" stroke="#4150DA" stroke-width="8" pathLength="100" stroke-dasharray="80 20" transform="rotate(125 60 60)"/>
+  <rect class="pf-ring pf-r1" x="46" y="46" width="28" height="28" rx="9" stroke="#16208C" stroke-width="8" pathLength="100" stroke-dasharray="84 16" transform="rotate(-12 60 60)"/>
+</svg>
