@@ -1,5 +1,13 @@
 # Prefex
 
+[![Release verified](https://github.com/PromptForcePrime/prefex/actions/workflows/verify-release.yml/badge.svg)](https://github.com/PromptForcePrime/prefex/actions/workflows/verify-release.yml)
+[![Release](https://img.shields.io/github/v/release/PromptForcePrime/prefex)](https://github.com/PromptForcePrime/prefex/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/PromptForcePrime/prefex/total)](https://github.com/PromptForcePrime/prefex/releases)
+[![Platforms](https://img.shields.io/badge/platforms-macOS%20%7C%20Linux%20%7C%20Windows-blue)](VERIFICATION.md)
+[![Checksums](https://img.shields.io/badge/releases-SHA256%20checksums-informational)](VERIFICATION.md)
+[![Cache-safe](https://img.shields.io/badge/cache--safe-self--verified-success)](VERIFICATION.md#cache-safe)
+[![Trust](https://img.shields.io/badge/trust-data%20handling-blueviolet)](TRUST.md)
+
 ![Prefex Logo](img/promptforce-mark.png)
 
 **Spend less on Claude, with receipts.**
