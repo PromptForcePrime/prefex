@@ -1,13 +1,14 @@
-# Prefex
-
-```
+<table border="0"><tr>
+<td valign="middle"><img src="img/promptforce-mark.png" width="78" alt="Prefex"></td>
+<td valign="middle"><pre>
 ██████╗ ██████╗ ███████╗███████╗███████╗██╗  ██╗
 ██╔══██╗██╔══██╗██╔════╝██╔════╝██╔════╝╚██╗██╔╝
 ██████╔╝██████╔╝█████╗  █████╗  █████╗   ╚███╔╝ 
 ██╔═══╝ ██╔══██╗██╔══╝  ██╔══╝  ██╔══╝   ██╔██╗ 
 ██║     ██║  ██║███████╗██║     ███████╗██╔╝ ██╗
 ╚═╝     ╚═╝  ╚═╝╚══════╝╚═╝     ╚══════╝╚═╝  ╚═╝
-```
+</pre></td>
+</tr></table>
 
 [![Release verified](https://github.com/PromptForcePrime/prefex/actions/workflows/verify-release.yml/badge.svg)](https://github.com/PromptForcePrime/prefex/actions/workflows/verify-release.yml)
 [![Release](https://img.shields.io/github/v/release/PromptForcePrime/prefex)](https://github.com/PromptForcePrime/prefex/releases/latest)
@@ -19,7 +20,6 @@
 [![Internal suite](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FPromptForcePrime%2Fprefex%2Fbadges%2Ftests.json)](VERIFICATION.md)
 [![Coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FPromptForcePrime%2Fprefex%2Fbadges%2Fcoverage.json)](VERIFICATION.md)
 
-![Prefex Logo](img/promptforce-mark.png)
 
 **Spend less on Claude, with receipts.**
 
@@ -29,6 +29,10 @@ Prefex distills a dozen of them, rebuilds each one natively in Go, and stacks th
 self-contained binary that runs behind one `base_url` change. No code changes, no data leaving your
 machine, and an honest dashboard that shows what Prefex actually saved you beyond the native prompt
 caching you already get for free.
+
+Claude Code is the flagship, but Prefex is client-agnostic: it ships with **prebuilt support for
+Codex and other OpenAI-compatible tools** (via the OpenAI Chat and Responses APIs), currently in
+active benchmarking. Any client that lets you set a custom base URL works today.
 
 Prefex is a [Promptforce.ai](https://promptforce.ai) product. Promptforce.ai is a Day Two AI company.
 
