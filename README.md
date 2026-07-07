@@ -1,5 +1,14 @@
 # Prefex
 
+```
+██████╗ ██████╗ ███████╗███████╗███████╗██╗  ██╗
+██╔══██╗██╔══██╗██╔════╝██╔════╝██╔════╝╚██╗██╔╝
+██████╔╝██████╔╝█████╗  █████╗  █████╗   ╚███╔╝ 
+██╔═══╝ ██╔══██╗██╔══╝  ██╔══╝  ██╔══╝   ██╔██╗ 
+██║     ██║  ██║███████╗██║     ███████╗██╔╝ ██╗
+╚═╝     ╚═╝  ╚═╝╚══════╝╚═╝     ╚══════╝╚═╝  ╚═╝
+```
+
 [![Release verified](https://github.com/PromptForcePrime/prefex/actions/workflows/verify-release.yml/badge.svg)](https://github.com/PromptForcePrime/prefex/actions/workflows/verify-release.yml)
 [![Release](https://img.shields.io/github/v/release/PromptForcePrime/prefex)](https://github.com/PromptForcePrime/prefex/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/PromptForcePrime/prefex/total)](https://github.com/PromptForcePrime/prefex/releases)
@@ -7,6 +16,8 @@
 [![Checksums](https://img.shields.io/badge/releases-SHA256%20checksums-informational)](VERIFICATION.md)
 [![Cache-safe](https://img.shields.io/badge/cache--safe-self--verified-success)](VERIFICATION.md#cache-safe)
 [![Trust](https://img.shields.io/badge/trust-data%20handling-blueviolet)](TRUST.md)
+[![Internal suite](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FPromptForcePrime%2Fprefex%2Fbadges%2Ftests.json)](VERIFICATION.md)
+[![Coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FPromptForcePrime%2Fprefex%2Fbadges%2Fcoverage.json)](VERIFICATION.md)
 
 ![Prefex Logo](img/promptforce-mark.png)
 
@@ -58,7 +69,7 @@ Dashboard: http://localhost:8019/dashboard
 
 ## What it does
 
-A dozen optimizations across six layers, in one binary:
+A dozen-plus optimizations across eight layers, in one binary:
 
 - **Smart routing**: an explainable rules router sends simple turns to a cheaper model and keeps the
   hard ones on the strong one. You set the threshold.
@@ -72,6 +83,11 @@ A dozen optimizations across six layers, in one binary:
   before they bill.
 - **Receipts and coaching**: savings attributed per mechanism, in honest incremental terms, then
   surfaced inline as you work so the numbers actually change how you spend.
+- **Encoder routing** (optional): an on-device ONNX encoder — a frozen ModernBERT trunk that runs
+  fully offline — scores prompt complexity for sharper routing than rules alone. Opt-in, default-off.
+- **Spend watcher**: a background sentinel reads the live request stream and flags the expensive stuff
+  the moment it happens — big cold cache writes, prefix flapping, rate limits, spend spikes — to your
+  status line and dashboard.
 
 Every layer is independent and fail-open. If any component errors, the request passes straight through to
 the upstream API unchanged.
@@ -138,6 +154,7 @@ because the ideas are theirs and the credit should be too.
 | Source | The idea we learned from | License |
 |--------|--------------------------|---------|
 | [RouteLLM](https://github.com/lm-sys/RouteLLM) | A cheap classifier routes simple queries to a weak model | Apache-2.0 |
+| [NVIDIA Switchyard](https://github.com/NVIDIA-NeMo/Switchyard) | Runtime agent-loop signals (tool errors, retries, plan depth) score whether a turn truly needs the strong model | Apache-2.0 |
 | [LLMLingua / LLMLingua-2](https://github.com/microsoft/LLMLingua) | Token-importance scoring to drop low-value tokens | MIT |
 | [caveman-compression](https://github.com/wilpel/caveman-compression) | Strip filler from natural-language text for cheap token shaving | MIT |
 | [RTK](https://github.com/rtk-ai/rtk) | Intercept tool output and compress it before it reaches context | Apache-2.0 |
@@ -163,7 +180,7 @@ the sidecar** (`compression.kompress: true`). See [`NOTICE`](NOTICE) and `deploy
 |-----------|------|---------|
 | **[headroom / Kompress](https://github.com/headroomlabs-ai/headroom)** | The keep/drop model + ONNX inference our sidecar runs (headroom's *algorithms* are reimplemented in Go and credited above; this entry is the *model*) | Apache-2.0 |
 | [`chopratejas/kompress-v2-base`](https://huggingface.co/chopratejas/kompress-v2-base) | The keep/drop model weights the sidecar serves | Apache-2.0 |
-| [ModernBERT](https://github.com/AnswerDotAI/ModernBERT) | The base encoder those weights are fine-tuned from | Apache-2.0 |
+| [ModernBERT](https://github.com/AnswerDotAI/ModernBERT) | The base encoder those weights are fine-tuned from — and the frozen trunk behind the optional routing encoder | Apache-2.0 |
 | [ONNX Runtime](https://github.com/microsoft/onnxruntime) | Inference runtime for the model (no PyTorch) | MIT |
 | [Hugging Face Transformers](https://github.com/huggingface/transformers) | Tokenization for the sidecar | Apache-2.0 |
 
