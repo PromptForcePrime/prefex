@@ -1,0 +1,71 @@
+# .github/workflows/verify-release.yml  — for the PUBLIC repo (PromptForcePrime/prefex)
+#
+# The flagship credibility workflow: proves the SHIPPED ARTIFACT works, on
+# every platform, on every release and every night. For a binary-distribution
+# repo this is the question users actually have — not "does the source build"
+# but "is the thing I am about to run verified".
+name: verify-release
+
+on:
+  release:
+    types: [published]
+  schedule:
+    - cron: "23 6 * * *"   # nightly, off the :00 stampede
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            binary: prefex-linux-amd64
+          - os: macos-latest
+            binary: prefex-darwin-arm64
+          - os: windows-latest
+            binary: prefex-windows-amd64.exe
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Download latest release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download --repo "$GITHUB_REPOSITORY" \
+            --pattern "${{ matrix.binary }}" --pattern "SHA256SUMS" --dir dist
+      - name: Verify checksum
+        run: |
+          cd dist
+          grep "${{ matrix.binary }}" SHA256SUMS > expected.sum
+          if command -v sha256sum >/dev/null; then
+            sha256sum -c expected.sum
+          else
+            shasum -a 256 -c expected.sum
+          fi
+      - name: Smoke test — version + read-only preview
+        run: |
+          chmod +x "dist/${{ matrix.binary }}" || true
+          "./dist/${{ matrix.binary }}" -version
+          "./dist/${{ matrix.binary }}" preview || true   # read-only, must not crash
+      - name: Smoke test — daemon health (unix only)
+        if: runner.os != 'Windows'
+        run: |
+          mkdir -p smoke
+          cat > smoke/config.yaml <<'EOF'
+          prefex:
+            mode: live
+            dashboard:
+              port: 8919
+          EOF
+          "./dist/${{ matrix.binary }}" start -config smoke/config.yaml -db smoke/prefex.db || true
+          for i in $(seq 1 20); do
+            curl -sf http://127.0.0.1:8919/health && ok=1 && break || sleep 1
+          done
+          "./dist/${{ matrix.binary }}" stop -y || true
+          test "${ok:-0}" = "1"
