@@ -1,18 +1,3 @@
-<!--
-  DRAFT — NOT LEGAL ADVICE. This EULA was drafted as a starting template tailored
-  to how Prefex actually behaves (see TRUST.md). Before you publish or ship it:
-    1. Fill every [BRACKETED] placeholder (legal entity, jurisdiction, contact, date).
-    2. Have a qualified attorney review it — especially §10 (Data), §12–13
-       (Warranty/Liability), §16 (Governing Law), and the liability cap.
-    3. DONE (2026-07-09): dependency license audit found NO copyleft
-       (GPL/LGPL/AGPL/MPL) — all deps are MIT / BSD-2 / BSD-3 / Apache-2.0. The
-       public repo ships the tool-generated `THIRD_PARTY_LICENSES.md` (go-licenses)
-       + `NOTICE`; §10 references those. Re-audit when go.mod changes.
-    4. If you offer a hosted/team service or take payment, pair this EULA with a
-       separate Terms of Service and Privacy Policy — a EULA alone does not cover
-       subscriptions, refunds, or a hosted service.
--->
-
 # Prefex End User License Agreement (EULA)
 
 **Version 1.0 — Effective July 8, 2026**
