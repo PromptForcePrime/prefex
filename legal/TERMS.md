@@ -12,12 +12,12 @@ use the Site or download the Software.
 
 ---
 
-## 1. The Software is licensed under the EULA
+## 1. The Software is licensed under the Prefex Software License
 
-Your installation and use of the Software is governed by the **Prefex End User
-License Agreement (`EULA.md`)**, which is incorporated into these Terms by
-reference. In the event of a conflict between these Terms and the EULA regarding
-the Software, the EULA controls for the Software.
+Your installation and use of the Software is governed by the **Prefex Software
+License (`LICENSE.md`)**, which is incorporated into these Terms by
+reference. In the event of a conflict between these Terms and the License regarding
+the Software, the License controls for the Software.
 
 ---
 
@@ -52,7 +52,7 @@ submit to public features (e.g., a leaderboard entry) may be displayed publicly.
 
 The Site, the Software, and all related content and marks are owned by us or our
 licensors and are protected by intellectual-property laws. Except for the license
-granted in the EULA, no rights are granted to you. "Prefex" and "Promptforce.ai"
+granted in the License, no rights are granted to you. "Prefex" and "Promptforce.ai"
 are our marks; other names are the property of their respective owners, used for
 identification only, and do not imply affiliation or endorsement.
 
@@ -99,7 +99,7 @@ TO THE MAXIMUM EXTENT PERMITTED BY LAW, WE WILL NOT BE LIABLE FOR ANY INDIRECT,
 INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS,
 DATA, OR GOODWILL, ARISING FROM YOUR USE OF THE SITE OR SOFTWARE. OUR TOTAL
 AGGREGATE LIABILITY UNDER THESE TERMS WILL NOT EXCEED **USD $50**. (Liability
-relating to the Software is further limited by the EULA.)
+relating to the Software is further limited by the License.)
 
 ---
 
