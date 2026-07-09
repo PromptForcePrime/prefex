@@ -1,10 +1,3 @@
-<!--
-  DRAFT — NOT LEGAL ADVICE. Minimal Privacy Policy tailored to Prefex's actual
-  data handling (see TRUST.md). Safe to publish as a starting point; have counsel
-  review before you begin charging or collecting anything beyond what's described
-  here. Update the "Changes" date whenever you materially revise it.
--->
-
 # Promptforce.ai Privacy Policy
 
 **Effective July 8, 2026**
