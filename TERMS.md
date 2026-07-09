@@ -1,10 +1,3 @@
-<!--
-  DRAFT — NOT LEGAL ADVICE. Minimal Terms of Service for the promptforce.ai site
-  and free distribution of Prefex. The Software itself is governed by EULA.md,
-  incorporated by reference below. Expand this (payment, subscriptions, refunds,
-  SLAs, hosted-service terms) before you begin charging. Have counsel review.
--->
-
 # Promptforce.ai Terms of Service
 
 **Effective July 8, 2026**
