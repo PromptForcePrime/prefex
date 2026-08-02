@@ -181,6 +181,9 @@ because the ideas are theirs and the credit should be too.
 | [Mem0](https://github.com/mem0ai/mem0) | Cross-session memory via extracted facts and entities | Apache-2.0 |
 | [MemGPT / Letta](https://github.com/letta-ai/letta) | Tiered memory and self-managed context window | Apache-2.0 |
 | [OpenHands](https://github.com/All-Hands-AI/OpenHands) | Condense a task span into a structured progress note | MIT (core) |
+| [Storybloq](https://github.com/Storybloq/storybloq) | Structured session handover — goal/progress/files/blockers/next persisted per project across sessions (schema shape from public docs only) | PolyForm Shield 1.0.0 |
+| [codeburn](https://github.com/getagentseal/codeburn) | Dead-MCP-tool detection thresholds, cache-aware waste pricing, embedded pricing snapshot | MIT |
+| [Invariant Scanner](https://github.com/invariantlabs-ai/invariant) | Typed violation taxonomy for agent tool-call traces — theirs audits after the fact, our policy gateway gates live on the wire | Apache-2.0 |
 | [GraphRAG](https://github.com/microsoft/graphrag) | Bi-temporal pattern: don't lose history on a lossy edit | MIT |
 | [vLLM](https://github.com/vllm-project/vllm) / [Ollama](https://github.com/ollama/ollama) | Local inference for cheap auxiliary tasks (judge, distillation, router scoring) | Apache-2.0 / MIT |
 | Anthropic (native) | Prompt cache and server-side context editing, the things we extend | platform |
@@ -203,11 +206,14 @@ the sidecar** (`compression.kompress: true`). See [`NOTICE`](NOTICE) and `deploy
 | [ONNX Runtime](https://github.com/microsoft/onnxruntime) | Inference runtime for the model (no PyTorch) | MIT |
 | [Hugging Face Transformers](https://github.com/huggingface/transformers) | Tokenization for the sidecar | Apache-2.0 |
 
-**Bundled Go libraries.** The Prefex binary itself links three third-party Go modules:
-[go-redis](https://github.com/redis/go-redis) (BSD-2-Clause), [yaml.v3](https://github.com/go-yaml/yaml)
-(MIT and Apache-2.0), and [modernc.org/sqlite](https://gitlab.com/cznic/sqlite) (BSD-3-Clause). The full
-set of 22 bundled modules (direct and transitive) is in
-[`THIRD_PARTY_LICENSES.md`](THIRD_PARTY_LICENSES.md); see also [`NOTICE`](NOTICE).
+**Bundled Go libraries.** The most notable third-party modules linked into the Prefex binary:
+[Open Policy Agent](https://github.com/open-policy-agent/opa) (Apache-2.0, the embedded policy-gateway
+engine), [go-redis](https://github.com/redis/go-redis) (BSD-2-Clause),
+[yaml.v3](https://github.com/go-yaml/yaml) (MIT and Apache-2.0), and
+[modernc.org/sqlite](https://gitlab.com/cznic/sqlite) (BSD-3-Clause). The binary also embeds LiteLLM's
+[model-pricing snapshot](https://github.com/BerriAI/litellm) (MIT) as data. The full set of 45 bundled
+modules (direct and transitive) is in [`THIRD_PARTY_LICENSES.md`](THIRD_PARTY_LICENSES.md); see also
+[`NOTICE`](NOTICE).
 
 If we have miscredited or mislabeled anything, please open an issue and we will correct it.
 

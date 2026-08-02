@@ -28,6 +28,17 @@ courtesy credits, not license obligations:
       (algorithms reimplemented in Go: content-routed compaction, recover-on-demand
        CCR, output shaping. The headroom Kompress *model* is run via the optional
        sidecar below, not reimplemented.)
+  - codeburn            (MIT)         https://github.com/getagentseal/codeburn
+      (ideas: dead-MCP-tool detection thresholds, cache-aware waste pricing, the
+       embedded-pricing-snapshot approach. Re-authored as Setup Health.)
+  - Invariant Scanner   (Apache-2.0)  https://github.com/invariantlabs-ai/invariant
+      (idea: typed violation taxonomy for agent tool-call traces. Re-authored as
+       the live policy gateway's Rego policy bundle; theirs is post-hoc trace
+       analysis, ours gates on the wire.)
+  - Storybloq           (PolyForm Shield 1.0.0)  https://github.com/Storybloq/storybloq
+      (idea: structured session handover — goal/progress/files/blockers/next
+       persisted per project across sessions. Schema shape distilled from public
+       docs only; no source code used.)
 
 ================================================================================
 Third-party components bundled or invoked by the OPTIONAL Kompress sidecar
@@ -70,13 +81,20 @@ Third-party Go libraries compiled into the prefex binary
 
 These are linked into the released binary and distributed with it:
 
+  github.com/open-policy-agent/opa  (Apache-2.0)    embedded policy engine (policy gateway)
   github.com/redis/go-redis/v9   (BSD-2-Clause)    optional Redis session store
   gopkg.in/yaml.v3               (MIT, Apache-2.0)  config parsing
   modernc.org/sqlite             (BSD-3-Clause)     embedded dashboard database
 
-The complete set of third-party Go modules compiled into the binary (22 modules,
-direct and transitive) and their licenses is listed in THIRD_PARTY_LICENSES.md,
-generated with go-licenses.
+The complete set of third-party Go modules compiled into the binary (45 modules,
+direct and transitive — the growth over the earlier 22 is OPA's dependency
+tree) and their licenses is listed in THIRD_PARTY_LICENSES.md.
+
+Embedded data:
+
+  LiteLLM model_prices_and_context_window.json  (MIT)
+    https://github.com/BerriAI/litellm — the model-pricing snapshot embedded in
+    the binary and refreshed per release / via `prefex pricing refresh`.
 
 --------------------------------------------------------------------------------
 A full copy of the Apache License 2.0 is available at:
