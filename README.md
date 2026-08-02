@@ -73,18 +73,29 @@ Dashboard: http://localhost:8019/dashboard
 
 ## What it does
 
-A dozen-plus optimizations across eight layers, in one binary:
+A dozen-plus optimizations across twelve layers, in one binary:
 
 - **Smart routing**: an explainable rules router sends simple turns to a cheaper model and keeps the
   hard ones on the strong one. You set the threshold.
-- **Prompt-cache assist**: prefix detection, a cache warmer, and prefix-stabilization keep your cached
-  context hot, extending the native prompt cache further than it goes alone.
+- **Prompt-cache assist**: prefix detection, a cache warmer, prefix-stabilization, and prewarm-on-switch
+  keep your cached context hot — including pre-paying the re-write before a model switch or a proxy
+  stop, so you never eat the cold-turn spike.
 - **Compression**: lossless-first compaction of tool output, logs, and JSON. Cache-boundary-safe and
   recoverable. Never lossy on code.
 - **Cross-session memory**: typed facts extracted from your sessions and re-injected by project, so a
-  new session starts with what the last one learned.
+  new session starts with what the last one learned. Strictly project-scoped — one project's memory
+  never surfaces in another.
+- **Session handover**: when a session ends, Prefex distills a structured note — goal, progress, key
+  files, blockers, next steps — and hands it to your next session in that project. Injected once,
+  cache-safely, so continuity costs nothing per turn.
 - **Spend guardrails**: token traps, loop guards, think-caps, and lean reasoning catch runaway turns
   before they bill.
+- **Policy gateway**: an embedded OPA engine evaluates every tool call against your Rego policies —
+  advisory logging or hard enforcement. MCP tool descriptions are scanned at session start and
+  suspicious ones flagged on a security activity view (detection and audit; the scan flags, it doesn't
+  block). Policies evaluate in-process on your machine.
+- **Output shaper**: trims model verbosity on mechanical turns — measured ~11% fewer output tokens,
+  the ones that bill at ~5× input and never cache.
 - **Receipts and coaching**: savings attributed per mechanism, in honest incremental terms, then
   surfaced inline as you work so the numbers actually change how you spend.
 - **Encoder routing** (optional): an on-device ONNX encoder — a frozen ModernBERT trunk that runs
@@ -92,6 +103,10 @@ A dozen-plus optimizations across eight layers, in one binary:
 - **Spend watcher**: a background sentinel reads the live request stream and flags the expensive stuff
   the moment it happens — big cold cache writes, prefix flapping, rate limits, spend spikes — to your
   status line and dashboard.
+- **Every tool, one daemon**: `prefex wrap codex` (or aider, cursor, zed) routes any tool through the
+  same shared daemon — one dashboard, one savings ledger, per-tool attribution. Codex rides the OpenAI
+  Responses API natively. Pricing for ~3k models resolves from an embedded snapshot; unknown models are
+  flagged `unpriced`, never silently guessed.
 
 Every layer is independent and fail-open. If any component errors, the request passes straight through to
 the upstream API unchanged.
