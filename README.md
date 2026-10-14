@@ -26,24 +26,28 @@
 Prefex is a local-first proxy for Claude Code and the Anthropic / OpenAI APIs. The best ideas for cutting
 LLM cost go viral one at a time, scattered across the ecosystem as sidecars, plugins, and cloud services.
 Prefex distills a dozen of them, rebuilds each one natively in Go, and stacks them into a single
-self-contained binary that runs behind one `base_url` change. No code changes, no data leaving your
-machine, and an honest dashboard that shows what Prefex actually saved you beyond the native prompt
+self-contained binary that runs behind one `base_url` change. No code changes, your prompts go only
+to the models you use, and an honest dashboard that shows what Prefex actually saved you beyond the native prompt
 caching you already get for free.
-
-Claude Code is the flagship, but Prefex is client-agnostic: it ships with **prebuilt support for
-Codex and other OpenAI-compatible tools** (via the OpenAI Chat and Responses APIs), currently in
-active benchmarking. Any client that lets you set a custom base URL works today.
 
 Prefex is a [Promptforce.ai](https://promptforce.ai) product. Promptforce.ai is a Day Two AI company.
 
-> Prefex is in **Early Access**: free for 60 days, no obligation. Get your install link at
-> [promptforce.ai](https://promptforce.ai).
-> 
+> **Pro mode is free until Prefex saves you $500**: the first $500 of savings *beyond* native prompt
+> caching is included, no card, no obligation. Get your install link at
+> [promptforce.ai](https://promptforce.ai). See [Pro mode and Team mode](#pro-mode-and-team-mode).
+>
 > **Community:** [Discord](https://discord.gg/Ke5BdFB9Au) · [GitHub](https://github.com/PromptForcePrime/prefex)
 
 ---
 
 ## Install
+
+The easiest way is the **PromptForce app** (macOS 13+ and Windows, beta): it installs Prefex and
+ReadyBase, connects Claude Code and Codex, and lives in the menu bar. Download it from
+[promptforce.ai](https://promptforce.ai). Mac builds are signed and notarized; Windows builds are
+Authenticode-signed.
+
+Or install Prefex alone from the command line:
 
 ```bash
 # macOS / Linux. Download the script and review it before running.
@@ -54,10 +58,10 @@ bash install.sh
 
 ```powershell
 # Windows PowerShell
-iwr https://promptforce.ai/install.ps1 -OutFile install.ps1; .\install.ps1
+iwr https://www.promptforce.ai/install.ps1 -OutFile install.ps1; .\install.ps1
 ```
 
-We do not do `curl | bash`. Download the script, read it, then decide. The installer starts Prefex on
+We recommend downloading the script and reading it before you run it. The installer starts Prefex on
 `:8019`, connects Claude Code, and is reversible with `prefex stop` or the uninstaller.
 
 Then point your client at it:
@@ -96,6 +100,11 @@ A dozen-plus optimizations across twelve layers, in one binary:
   block). Policies evaluate in-process on your machine.
 - **Output shaper**: trims model verbosity on mechanical turns — measured ~11% fewer output tokens,
   the ones that bill at ~5× input and never cache.
+- **Side jobs on free and local models**: `@prefex-auto`, `/pf-delegate`, and a delegate tool your
+  agent can call hand self-contained work (a summary, a first-pass review) to a free or local model
+  instead of Claude. Each job runs only at the privacy level it allows (your machines, providers that
+  state they don't train on inputs, or any provider); credentials and personal data stay on your
+  machines, and your main conversation never changes model.
 - **Receipts and coaching**: savings attributed per mechanism, in honest incremental terms, then
   surfaced inline as you work so the numbers actually change how you spend.
 - **Encoder routing** (optional): an on-device ONNX encoder — a frozen ModernBERT trunk that runs
@@ -128,6 +137,22 @@ number, including ours; check your own dashboard, request by request.
 
 ---
 
+## Pro mode and Team mode
+
+- **Pro mode** (one developer, one machine): every layer above, the full dashboard, and the first
+  **$500 of savings beyond native prompt caching included**. It is measured by the same "Saved by
+  Prefex" figure the dashboard headlines, so what you've used is always on your own screen. Prefex warns
+  at 80%; when the $500 is reached you get 15 days to add a licence before it stops and hands your tools
+  back to the provider directly.
+- **Team mode** (an organization): everything in Pro for each seat, plus a team dashboard with per-developer
+  spend and savings attribution, org-scoped reporting, per-developer monthly quotas, and shared
+  guardrail and policy settings. Seats join the team's Prefex with one command.
+
+Licences for continued Pro use and for Team mode: [promptforce.ai](https://promptforce.ai) or
+[contact@daytwoai.com](mailto:contact@daytwoai.com).
+
+---
+
 ## Connect your client
 
 Anything that lets you set a custom API base URL works out of the box.
@@ -149,13 +174,19 @@ Anything that lets you set a custom API base URL works out of the box.
    path, Prefex logs and forwards upstream unchanged.
 2. **Binary, not source.** One CGO-free Go binary. No runtime fan-out of processes, no sidecar to
    supervise. Trained weights are the one exception, behind an opt-in, default-off seam (see Attribution).
-3. **Your keys stay home.** Everything runs on localhost. No telemetry, no analytics, no external
-   logging. The dashboard has no auth because nothing can reach it but you.
+3. **Your prompts and keys stay home.** Everything runs on localhost. Prompts, code and keys go only to
+   the providers you use: the one you already call, plus, for side jobs you hand off, a local model or a
+   provider whose key you added. Beyond that, Prefex sends two things to promptforce.ai: an anonymous
+   daily usage report (counts and percentages only, on by default, off with
+   `prefex toggle usage-reporting off`), and a small licence check carrying a salted machine hash,
+   version, key id and three numbers, never a prompt, path or identity. It also checks GitHub daily for a
+   newer release. [promptforce.ai/trust](https://promptforce.ai/trust) lists every field. The dashboard
+   has no auth because nothing can reach it but you.
 
 Verify it yourself:
 
 ```bash
-# All outbound traffic should go only to api.anthropic.com / api.openai.com
+# Outbound traffic: your provider(s), any side-job provider you added, api.github.com, promptforce.ai
 sudo tcpdump -i any -n 'dst port 443' 2>/dev/null | grep -v api.anthropic.com
 ```
 
@@ -168,23 +199,30 @@ in Go, inside our own principles. Copyright protects code, not ideas, so for the
 source code is copied into Prefex**: these are courtesy credits, not license obligations. We name them
 because the ideas are theirs and the credit should be too.
 
+The 16 GitHub projects below carry 447k+ stars between them (counted 2026-09-29; papers, runtimes and
+platform features are credited but not counted).
+
 ### Ideas distilled into native Go (clean-room, no code used)
 
 | Source | The idea we learned from | License |
 |--------|--------------------------|---------|
 | [RouteLLM](https://github.com/lm-sys/RouteLLM) | A cheap classifier routes simple queries to a weak model | Apache-2.0 |
-| [NVIDIA Switchyard](https://github.com/NVIDIA-NeMo/Switchyard) | Runtime agent-loop signals (tool errors, retries, plan depth) score whether a turn truly needs the strong model | Apache-2.0 |
 | [LLMLingua / LLMLingua-2](https://github.com/microsoft/LLMLingua) | Token-importance scoring to drop low-value tokens | MIT |
 | [caveman-compression](https://github.com/wilpel/caveman-compression) | Strip filler from natural-language text for cheap token shaving | MIT |
 | [RTK](https://github.com/rtk-ai/rtk) | Intercept tool output and compress it before it reaches context | Apache-2.0 |
 | [headroom](https://github.com/headroomlabs-ai/headroom) | Content-routed compaction, recover-on-demand CCR, and output shaping (terse-steer + effort-down on routine turns) | Apache-2.0 |
 | [Mem0](https://github.com/mem0ai/mem0) | Cross-session memory via extracted facts and entities | Apache-2.0 |
 | [MemGPT / Letta](https://github.com/letta-ai/letta) | Tiered memory and self-managed context window | Apache-2.0 |
-| [OpenHands](https://github.com/All-Hands-AI/OpenHands) | Condense a task span into a structured progress note | MIT (core) |
-| [Storybloq](https://github.com/Storybloq/storybloq) | Structured session handover — goal/progress/files/blockers/next persisted per project across sessions (schema shape from public docs only) | PolyForm Shield 1.0.0 |
+| [OpenHands](https://github.com/OpenHands/OpenHands) | Condense a task span into a structured progress note | MIT (core) |
 | [codeburn](https://github.com/getagentseal/codeburn) | Dead-MCP-tool detection thresholds, cache-aware waste pricing, embedded pricing snapshot | MIT |
+| [Token Meter](https://github.com/splunk/token-meter) (Splunk) | Evidence semantics: every displayed number carries its provenance (covered / partial / estimated / unavailable), and a period with no comparable prior says so instead of showing a zero delta | MIT |
+| [Switchyard](https://github.com/NVIDIA-NeMo/Switchyard) (NVIDIA) | A typed classifier taxonomy for routing (task type, complexity, reasoning depth, risk) rather than one score | Apache-2.0 |
 | [Invariant Scanner](https://github.com/invariantlabs-ai/invariant) | Typed violation taxonomy for agent tool-call traces — theirs audits after the fact, our policy gateway gates live on the wire | Apache-2.0 |
+| [DefenseClaw](https://github.com/cisco-ai-defense/defenseclaw) | Tool-result scanning, MCP tool-description admission scanning, severity-tiered outcomes, observe-then-enforce workflow — re-authored on prefex's wire position, keeping our fail-open posture and Rego (not their YAML schema) | Apache-2.0 |
 | [GraphRAG](https://github.com/microsoft/graphrag) | Bi-temporal pattern: don't lose history on a lossy edit | MIT |
+| [llmfit](https://github.com/AlexsJones/llmfit) | Scoring candidate local models against detected hardware by weighted fit (VRAM, RAM headroom, disk, GPU class) | MIT |
+| [Experiential](https://github.com/experientiallabs/experiential) | Paired-difference estimation with a variance floor (a constant sample cannot report zero uncertainty), and coerce-with-disclosure — every request substitution named as `path->effective`, logged and counted rather than applied silently | Apache-2.0 |
+| [Chain of Draft](https://arxiv.org/abs/2502.18600) (paper) | Draft-then-refine prompting to cut reasoning tokens, applied after the last cache breakpoint so the cached prefix never moves | paper |
 | [vLLM](https://github.com/vllm-project/vllm) / [Ollama](https://github.com/ollama/ollama) | Local inference for cheap auxiliary tasks (judge, distillation, router scoring) | Apache-2.0 / MIT |
 | Anthropic (native) | Prompt cache and server-side context editing, the things we extend | platform |
 
@@ -202,7 +240,7 @@ the sidecar** (`compression.kompress: true`). See [`NOTICE`](NOTICE) and `deploy
 |-----------|------|---------|
 | **[headroom / Kompress](https://github.com/headroomlabs-ai/headroom)** | The keep/drop model + ONNX inference our sidecar runs (headroom's *algorithms* are reimplemented in Go and credited above; this entry is the *model*) | Apache-2.0 |
 | [`chopratejas/kompress-v2-base`](https://huggingface.co/chopratejas/kompress-v2-base) | The keep/drop model weights the sidecar serves | Apache-2.0 |
-| [ModernBERT](https://github.com/AnswerDotAI/ModernBERT) | The base encoder those weights are fine-tuned from — and the frozen trunk behind the optional routing encoder | Apache-2.0 |
+| [ModernBERT](https://github.com/AnswerDotAI/ModernBERT) | The base encoder those weights are fine-tuned from | Apache-2.0 |
 | [ONNX Runtime](https://github.com/microsoft/onnxruntime) | Inference runtime for the model (no PyTorch) | MIT |
 | [Hugging Face Transformers](https://github.com/huggingface/transformers) | Tokenization for the sidecar | Apache-2.0 |
 
@@ -222,8 +260,9 @@ If we have miscredited or mislabeled anything, please open an issue and we will 
 ## License and terms
 
 Prefex is distributed as a binary, in Beta, provided as-is with no warranty. Source code is not included
-in this repository (binary releases only). Early Access is free for 60 days; Pro and Team plans are
-available on request at [contact@daytwoai.com](mailto:contact@daytwoai.com).
+in this repository (binary releases only). Pro mode is free until Prefex saves you $500 beyond native
+prompt caching; licences and Team mode at [promptforce.ai](https://promptforce.ai) or
+[contact@daytwoai.com](mailto:contact@daytwoai.com).
 
 Third-party components bundled or invoked by the optional sidecar retain their own licenses, recorded in
 [`NOTICE`](NOTICE).

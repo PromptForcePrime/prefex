@@ -20,7 +20,7 @@ courtesy credits, not license obligations:
   - RTK                 (Apache-2.0)  https://github.com/rtk-ai/rtk
   - Mem0                (Apache-2.0)  https://github.com/mem0ai/mem0
   - MemGPT / Letta      (Apache-2.0)  https://github.com/letta-ai/letta
-  - OpenHands           (MIT, core)   https://github.com/All-Hands-AI/OpenHands
+  - OpenHands           (MIT, core)   https://github.com/OpenHands/OpenHands
   - GraphRAG            (MIT)         https://github.com/microsoft/graphrag
   - vLLM                (Apache-2.0)  https://github.com/vllm-project/vllm
   - Ollama              (MIT)         https://github.com/ollama/ollama
@@ -35,10 +35,49 @@ courtesy credits, not license obligations:
       (idea: typed violation taxonomy for agent tool-call traces. Re-authored as
        the live policy gateway's Rego policy bundle; theirs is post-hoc trace
        analysis, ours gates on the wire.)
-  - Storybloq           (PolyForm Shield 1.0.0)  https://github.com/Storybloq/storybloq
-      (idea: structured session handover — goal/progress/files/blockers/next
-       persisted per project across sessions. Schema shape distilled from public
-       docs only; no source code used.)
+  - DefenseClaw (Cisco) (Apache-2.0)  https://github.com/cisco-ai-defense/defenseclaw
+      (ideas: tool-result content scanning, MCP tool-description admission
+       scanning, severity-tiered outcomes, observe-then-enforce workflow.
+       Re-authored in Go + Rego on prefex's wire position; their fail-closed
+       posture and YAML policy schema deliberately not adopted.)
+  - Chain of Draft      (paper)       https://arxiv.org/abs/2502.18600
+      (idea: draft-then-refine prompting to cut reasoning tokens. Re-authored as
+       the effort/verbosity steer appended after the last cache_control
+       breakpoint, so the cached prefix is never disturbed.)
+  - Switchyard (NVIDIA) (Apache-2.0)  https://github.com/NVIDIA-NeMo/Switchyard
+      (idea: a TYPED classifier taxonomy for routing decisions — task_type,
+       complexity, reasoning_depth, risk — rather than a single score. Re-authored
+       as the advisor's typed schema. Their Rust wire-format translation layer was
+       reviewed and not ported; prefex-auto reuses prefex's own translation.)
+  - llmfit              (MIT)         https://github.com/AlexsJones/llmfit
+      (idea: scoring candidate local models against detected hardware by weighted
+       fit — VRAM, RAM headroom, disk, GPU speed class. Re-authored as
+       internal/modelfit against internal/hardware's detected profile.)
+  - OmniRoute           (MIT)         https://github.com/diegosouzapw/OmniRoute
+      (ideas: an evidence-tagged, dated catalogue of free-tier plans; rate
+       limits learned from response headers per key; a per-key circuit
+       breaker. Re-authored as the prefex-auto free-pool catalogue and quota
+       learner in Go. Its consumer-login providers, client fingerprinting,
+       price table and advisory-only ToS labels were deliberately not adopted.)
+  - Personal AI Router (NVIDIA) (Apache-2.0)  https://github.com/NVIDIA/Personal-AI-Router
+      (ideas: hysteresis bands on load thresholds; stale telemetry read as
+       unknown, never zero; placing work on machines on your own network.
+       Re-authored as prefex-auto's quota tracking and local-server capacity.)
+  - Experiential        (Apache-2.0)  https://github.com/experientiallabs/experiential
+      (ideas: paired-difference estimation with a variance floor — a constant
+       sample cannot report zero uncertainty; and coerce-with-disclosure, where
+       every request substitution is named as path->effective, logged and
+       counted rather than applied silently. Both re-authored in Go. Their
+       kNN-over-embeddings routing was reviewed and deliberately not adopted.)
+  - Token Meter (Splunk)(MIT)         https://github.com/splunk/token-meter
+      (ideas: evidence semantics, where every displayed number carries its own
+       provenance — covered / partial / estimated / unavailable — and a period
+       with no comparable prior renders "no comparable prior period" rather
+       than a zero delta; a run-first information architecture that leads with
+       the active session; and a single multi-mode execution chart in place of
+       several single-purpose ones. Re-authored in Go and vanilla JS against
+       our own on-wire data; their cost figures, runtime-adapter architecture
+       and Git delivery page were reviewed and deliberately not adopted.)
 
 ================================================================================
 Third-party components bundled or invoked by the OPTIONAL Kompress sidecar
@@ -86,9 +125,17 @@ These are linked into the released binary and distributed with it:
   gopkg.in/yaml.v3               (MIT, Apache-2.0)  config parsing
   modernc.org/sqlite             (BSD-3-Clause)     embedded dashboard database
 
-The complete set of third-party Go modules compiled into the binary (45 modules,
+The complete set of third-party Go modules compiled into the binary (46 modules,
 direct and transitive — the growth over the earlier 22 is OPA's dependency
 tree) and their licenses is listed in THIRD_PARTY_LICENSES.md.
+
+Vendored source (third-party code carried in the Prefex source tree and compiled
+into the binary, rather than pulled as a module):
+
+  github.com/gpustack/gguf-parser-go  (MIT)  third_party/gguf-parser-go/
+    GGUF model-file parsing, used to read local model metadata. The upstream
+    LICENSE is retained in that directory.
+    https://github.com/gpustack/gguf-parser-go
 
 Embedded data:
 

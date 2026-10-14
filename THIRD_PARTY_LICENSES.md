@@ -29,6 +29,7 @@ The largest addition since the 22-module list: the embedded
 | `github.com/lestrrat-go/option/v2` | MIT |
 | `github.com/mattn/go-isatty` | MIT |
 | `github.com/ncruces/go-strftime` | MIT |
+| `github.com/odvcencio/gotreesitter` | MIT |
 | `github.com/open-policy-agent/opa` | Apache-2.0 |
 | `github.com/rcrowley/go-metrics` | BSD-2-Clause |
 | `github.com/redis/go-redis/v9` | BSD-2-Clause |
